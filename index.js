@@ -20,7 +20,7 @@ async function main() {
 
   const prompt = buildPrompt(diff);
   const message = await askLLM(prompt);
-  console.log('\n📦 Suggested Commit Message:\n\n' + message.trim());
+  console.log(message.trim());
 }
 
 main();
