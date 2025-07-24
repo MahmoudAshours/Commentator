@@ -1,5 +1,6 @@
 # Commentator
 
+![](Commentator.png)
 **Commentator** is a offline, AI-powered CLI that generates accurate, helpful Git commit messages based on your **staged changes** — using a local LLM Code Llama (codellama:instruct) via [Ollama](https://ollama.com).
 
 ---
@@ -28,6 +29,24 @@
 | Custom prompts/models    | ❌              | ✅           |
 
 ---
+## Supported Models
+Tested with:
+codellama:instruct ✅ (recommended)
+
+--- 
+
+## Roadmap
+ - Multi-file commit summary
+
+ - Conventional commit linting
+
+ -  VSCode extension (future)
+
+ -  Add support for unstaged diff preview
+
+ - Interactive mode to approve/edit the message
+
+---
 
 ## Usage
 
@@ -46,3 +65,16 @@ Then use it inside any repo
 git add src/utils/math.js
 commentator src/utils/math.js
 ```
+
+### Requirements
+
+- Node.js 18+
+
+- codellama installed with Ollama
+
+```bash
+ollama run codellama:instruct
+```
+---
+
+MIT — use it freely, improve it, and star it if you like it ⭐
