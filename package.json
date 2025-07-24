@@ -1,0 +1,12 @@
+{
+  "name": "commentator",
+  "version": "0.1.0",
+  "bin": {
+    "commentator": "./index.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  }
+}
+
