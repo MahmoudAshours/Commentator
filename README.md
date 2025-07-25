@@ -28,24 +28,26 @@
 | Explain multiple changes | ❌              | ✅           |
 | Custom prompts/models    | ❌              | ✅           |
 
+
+Also:
+
+✅ Generates commit messages in Conventional Commits format (e.g., feat(auth): ...)
+
+
+✅ Supports multiple staged files
+
+✅ Auto-adds files and suggests the final commit command
+
+✅ Interactive yes/no prompt before committing
+
+✅ Terminal-native and super fast
+
+
 ---
 ## Supported Models
 Tested with:
-codellama:instruct ✅ (recommended)
-
---- 
-
-## Roadmap
- - Multi-file commit summary
-
- - Conventional commit linting
-
- -  VSCode extension (future)
-
- -  Add support for unstaged diff preview
-
- - Interactive mode to approve/edit the message
-
+- codellama:instruct ✅ (recommended)
+ 
 ---
 
 ## Usage
@@ -62,9 +64,34 @@ npm link
 Then use it inside any repo
 
 ```bash
-git add src/utils/math.js
-commentator src/utils/math.js
+# Single file
+Commentator path/to/changed-file.js
+
+# Multiple files
+Commentator path/to/file1.js path/to/file2.ts
+
+# If the diff exists, you'll see:
+# ✅ commit message generated!
+# git commit -m "feat(api): add user verification on login"
+
+# Then it asks:
+# 👉 Commit this? (y/n)
+
 ```
+
+
+### How It Works?
+- Takes staged file paths from the CLI.
+
+- Fetches their git diff content.
+
+- Builds a custom prompt based on your code changes.
+
+- Sends the prompt to a local LLM (like CodeLlama).
+
+- Returns a one-line, Conventional Commit message.
+
+- Auto-adds files and suggests the exact git commit -m ... command.
 
 ### Requirements
 
@@ -76,5 +103,12 @@ commentator src/utils/math.js
 ollama run codellama:instruct
 ```
 ---
+
+### Coming Soon
+- VSCode extension
+- Breaking change detection
+- Auto scope detection
+- Interactive CLI enhancements
+
 
 MIT — use it freely, improve it, and star it if you like it ⭐
