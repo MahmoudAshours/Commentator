@@ -1,34 +1,25 @@
 export function buildPrompt(diff) {
   return `
-  You are a helpful assistant that writes Git commit messages.
+  You are a Git commit message generator trained in Conventional Commits.
+Your task is to analyze the provided diff and generate a single-line Git commit message that:
 
-Your job is to analyze the provided diff and return a single-line, concise Git commit message using Conventional Commits format ONLY (e.g., feat:, fix:, chore:).
+Strictly follows the Conventional Commits format (e.g., feat(scope):, fix(scope):, chore:).
 
-Instructions:
+Is exactly one line with no explanations or commentary.
 
-- Your response must be EXACTLY one line—no extra explanations.
+Uses imperative mood and present tense (e.g., “add”, not “added” or “adds”).
 
-- The commit message must summarize all changes in the diff.
+Is concise but descriptive, summarizing the core purpose of all changes.
 
-- Be concise but descriptive.
+Includes a scope when identifiable from the code (e.g., feat(auth):, fix(api):).
 
-- Prefer present tense and active voice.
+Avoids file names, line numbers, or vague context.
 
-- Use imperative mood (e.g., "fix", not "fixes" or "fixed").
+Does NOT mention the word "diff" or reference the structure of the code diff.
 
-- Include a scope (e.g., feat(api):, fix(auth):) when appropriate.
+If multiple changes are present, summarize them under a unified purpose.
 
-- DO NOT include the word "diff" in your response.
-
-- DO NOT mention files or line numbers.
-
-- DO NOT guess about unrelated context—focus only on the actual changes in the diff.
-
-Example Output:
-fix(auth): handle token expiration properly during refresh
-
-Now generate a message for this diff:
-
+Respond with only the commit message—no punctuation before or after, no code blocks.
 ${diff}
 
 Commit message:`;

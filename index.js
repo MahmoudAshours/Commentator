@@ -6,10 +6,10 @@ import { getStagedDiff } from './git.js';
 import { buildPrompt } from './prompts.js';
 import { askLLM } from './llm.js';
 
-const filename = process.argv[2];
+const filenames = process.argv.slice(2);
 
-if (!filename) {
-  console.log('❌ Please specify a filename.\nUsage: commentator <filename>');
+if (!filenames.length) {
+  console.log('❌ Please specify one or more filenames.\nUsage: commentator <file1> <file2> ...');
   process.exit(1);
 }
 
@@ -20,15 +20,23 @@ const rl = readline.createInterface({
 
 async function main() {
   try {
-    execSync(`git add ${filename}`);
 
-    const diff = getStagedDiff(filename);
-    if (!diff.trim()) {
-      console.log('⚠️ No diff found for that file.');
+    filenames.forEach((file) => {
+      execSync(`git add ${file}`);
+    });
+
+    const diffs = filenames
+      .map((file) => getStagedDiff(file))
+      .filter((d) => d.trim().length > 0);
+
+    if (!diffs.length) {
+      console.log('⚠️ No diffs found for the given files.');
       process.exit(0);
     }
 
-    const prompt = buildPrompt(diff);
+
+    const fullDiff = diffs.join('\n\n');
+    const prompt = buildPrompt(fullDiff);
     const message = (await askLLM(prompt)).trim();
 
     const cmd = `git commit -m "${message}"`;
