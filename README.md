@@ -55,7 +55,7 @@ Tested with:
 ### 1. Install with Node.js (18+)
 
 ```bash
-git clone [https://github.com/you/commentator.git](https://github.com/MahmoudAshours/Commentator.git)
+git clone https://github.com/you/commentator.git
 cd commentator
 npm install
 npm link
